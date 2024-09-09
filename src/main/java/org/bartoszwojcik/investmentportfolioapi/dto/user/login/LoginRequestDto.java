@@ -1,4 +1,4 @@
-package org.example.jvcarsharingservice.dto.user.login;
+package org.bartoszwojcik.investmentportfolioapi.dto.user.login;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

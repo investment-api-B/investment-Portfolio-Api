@@ -19,6 +19,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
+              - column:
+                  name: deleted
+                  type: BIT
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
 
   - changeSet:
       id: insert-roles
@@ -28,17 +34,11 @@ databaseChangeLog:
             tableName: roles
             columns:
               - column:
-                  name: id
-                  value: 1
-              - column:
                   name: name
                   value: ROLE_USER
         - insert:
             tableName: roles
             columns:
-              - column:
-                  name: id
-                  value: 2
               - column:
                   name: name
                   value: ROLE_ADMIN

@@ -17,7 +17,16 @@ databaseChangeLog:
                   value: password
               - column:
                   name: password
-                  value: $2a$10$OS/X7/9GMWlsZICdLxTAN.ORs0lhnpWEO4M/53GPKp/PdkqV4QC.2
+                  value: $2a$10$KexYcHsCJgAVpX0gXBtROuipea8jSx9aBwDymVNEORBV5icF0uNju
               - column:
-                  name: role
-                  value: MANAGER
+                  name: cash
+                  value: 0
+        - insert:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 2

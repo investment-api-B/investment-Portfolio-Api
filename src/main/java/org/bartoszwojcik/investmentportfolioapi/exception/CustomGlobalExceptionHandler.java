@@ -1,4 +1,4 @@
-package org.example.jvspringbootfirstbook.exception;
+package org.bartoszwojcik.investmentportfolioapi.exception;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;

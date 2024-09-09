@@ -1,4 +1,4 @@
-package org.example.jvspringbootfirstbook.security.token;
+package org.bartoszwojcik.investmentportfolioapi.security.token;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

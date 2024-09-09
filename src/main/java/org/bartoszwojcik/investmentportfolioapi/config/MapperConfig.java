@@ -1,4 +1,4 @@
-package org.example.jvspringbootfirstbook.config;
+package org.bartoszwojcik.investmentportfolioapi.config;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.NullValueCheckStrategy;

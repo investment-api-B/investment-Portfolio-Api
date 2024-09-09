@@ -1,4 +1,4 @@
-package org.example.jvspringbootfirstbook.model;
+package org.bartoszwojcik.investmentportfolioapi.model.enums;
 
 public enum RoleName {
     ROLE_USER,

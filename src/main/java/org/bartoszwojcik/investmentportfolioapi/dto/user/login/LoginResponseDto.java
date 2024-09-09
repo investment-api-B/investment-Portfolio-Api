@@ -1,4 +1,4 @@
-package org.example.jvcarsharingservice.dto.user.login;
+package org.bartoszwojcik.investmentportfolioapi.dto.user.login;
 
 public record LoginResponseDto(String token) {
 }

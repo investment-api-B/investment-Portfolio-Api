@@ -1,9 +1,8 @@
-package org.bartoszwojcik.investmentportfolioapi.model.annotation;
-
-import org.apache.commons.beanutils.BeanUtils;
+package org.bartoszwojcik.investmentportfolioapi.annotation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import org.apache.commons.beanutils.BeanUtils;
 
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
 

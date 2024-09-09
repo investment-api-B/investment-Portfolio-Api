@@ -1,4 +1,4 @@
-package org.bartoszwojcik.investmentportfolio_api;
+package org.bartoszwojcik.investmentportfolioapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

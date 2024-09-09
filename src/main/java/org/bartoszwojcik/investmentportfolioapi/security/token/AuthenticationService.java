@@ -1,8 +1,8 @@
-package org.example.jvspringbootfirstbook.security.token;
+package org.bartoszwojcik.investmentportfolioapi.security.token;
 
 import lombok.RequiredArgsConstructor;
-import org.example.jvspringbootfirstbook.dto.user.login.UserLoginRequestDto;
-import org.example.jvspringbootfirstbook.dto.user.login.UserLoginResponseDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.user.login.LoginRequestDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.user.login.LoginResponseDto;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,7 +14,7 @@ public class AuthenticationService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
 
-    public UserLoginResponseDto authenticate(UserLoginRequestDto requestDto) {
+    public LoginResponseDto authenticate(LoginRequestDto requestDto) {
         Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         requestDto.email(),
@@ -22,6 +22,6 @@ public class AuthenticationService {
                 )
         );
         String token = jwtUtil.generateToken(authenticate.getName());
-        return new UserLoginResponseDto(token);
+        return new LoginResponseDto(token);
     }
 }
