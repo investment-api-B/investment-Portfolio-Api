@@ -2,12 +2,9 @@ package org.bartoszwojcik.investmentportfolioapi.model.classes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,26 +16,17 @@ import org.hibernate.annotations.Where;
 @Getter
 @Setter
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE user_stocks SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE inflation SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-@Table(name = "user_stocks")
-public class UserStock {
+@Table(name = "inflation")
+public class Inflation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @Column(nullable = false)
-    private Stock stock;
-
+    private double yearToYear;
     @Column(nullable = false)
-    private Integer quantity;
-
-    @Column(name = "deleted", nullable = false)
+    private String countryName;
+    @Column(name = "deleted",nullable = false)
     private boolean isDeleted = false;
 }
-

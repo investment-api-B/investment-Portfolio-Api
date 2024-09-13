@@ -6,6 +6,7 @@ import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.login.LoginRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.login.LoginResponseDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.register.RegistrationRequestDto;
+import org.bartoszwojcik.investmentportfolioapi.security.token.AuthenticationService;
 import org.bartoszwojcik.investmentportfolioapi.service.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
@@ -31,6 +33,6 @@ public class AuthenticationController {
     @ResponseStatus(HttpStatus.OK)
     public LoginResponseDto login(
             @RequestBody @Valid LoginRequestDto requestDto) {
-        return null;
+        return authenticationService.authenticate(requestDto);
     }
 }
