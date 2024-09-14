@@ -32,7 +32,7 @@ public class UserStock {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @JoinColumn(name = "stock_id", nullable = false)
     private Stock stock;
 
     @Column(nullable = false)

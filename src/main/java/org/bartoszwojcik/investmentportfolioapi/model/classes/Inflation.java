@@ -18,7 +18,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE inflation SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-@Table(name = "inflation")
+@Table(name = "inflation's")
 public class Inflation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

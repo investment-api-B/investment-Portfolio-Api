@@ -24,7 +24,7 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String stockSymbol;
 
     @Column(name = "deleted", nullable = false)
