@@ -53,7 +53,7 @@ public class User implements UserDetails {
     private BigDecimal cash;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UserStock> stocks;
+    private Set<UserStock> stocks;//?????????
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

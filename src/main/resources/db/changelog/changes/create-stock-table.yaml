@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-role-table
+      id: create-stock-table
       author: bw
       changes:
         - createTable:
-            tableName: roles
+            tableName: stocks
             columns:
               - column:
                   name: id
@@ -12,33 +12,17 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    nullable: false
+
               - column:
-                  name: name
-                  type: VARCHAR(255)
+                  name: stock_symbol
+                  type: VARCHAR(10)
                   constraints:
                     nullable: false
                     unique: true
+
               - column:
                   name: deleted
                   type: BIT
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
-
-  - changeSet:
-      id: insert-roles
-      author: bw
-      changes:
-        - insert:
-            tableName: roles
-            columns:
-              - column:
-                  name: name
-                  value: ROLE_ADMIN
-        - insert:
-            tableName: roles
-            columns:
-              - column:
-                  name: name
-                  value: ROLE_USER

@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-role-table
+      id: create-inflation-table
       author: bw
       changes:
         - createTable:
-            tableName: roles
+            tableName: inflation's
             columns:
               - column:
                   name: id
@@ -13,32 +13,22 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
+
               - column:
-                  name: name
+                  name: year_to_year
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: country_name
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
-                    unique: true
+
               - column:
                   name: deleted
                   type: BIT
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
-
-  - changeSet:
-      id: insert-roles
-      author: bw
-      changes:
-        - insert:
-            tableName: roles
-            columns:
-              - column:
-                  name: name
-                  value: ROLE_ADMIN
-        - insert:
-            tableName: roles
-            columns:
-              - column:
-                  name: name
-                  value: ROLE_USER
