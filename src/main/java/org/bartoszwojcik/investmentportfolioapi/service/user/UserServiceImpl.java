@@ -5,6 +5,7 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UpdateUserRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.register.RegistrationRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.exception.RegistrationException;
 import org.bartoszwojcik.investmentportfolioapi.mapper.UserMapper;
@@ -52,6 +53,11 @@ public class UserServiceImpl implements UserService {
         user.setLastName(request.lastName());
         return userMapper.toDto(
                 userRepository.save(user));
+    }
+
+    @Override
+    public PortfolioValueDto getMyPortfolioValue() {
+        return null;
     }
 
     private void checkIfUserExists(RegistrationRequestDto requestDto) {

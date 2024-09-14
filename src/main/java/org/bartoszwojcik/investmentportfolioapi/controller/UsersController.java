@@ -9,6 +9,7 @@ import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioValu
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 import org.bartoszwojcik.investmentportfolioapi.service.user.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +26,7 @@ public class UsersController {
 
     @Operation(summary = "Get my profile info")
     @GetMapping("/me")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public UserDto getMyProfile(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
@@ -33,6 +35,7 @@ public class UsersController {
 
     @Operation(summary = "Update my profile info")
     @PutMapping("/me")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public UserDto updateMyProfile(Authentication authentication,
                                    @RequestBody @Valid UpdateUserRequestDto request) {
@@ -40,10 +43,12 @@ public class UsersController {
         return userService.updateMyProfile(user, request);
     }
 
-    @Operation
-    @GetMapping
+    @Operation(summary = "Show my portfolio value",
+                description = "cash + stocks")
+    @GetMapping("/me/portfolio-value")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public PortfolioValueDto getMyPortfolioValue() {
-        return null;
+        return userService.getMyPortfolioValue();
     }
 }

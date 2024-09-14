@@ -7,6 +7,7 @@ import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationCountry;
 import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationDto;
 import org.bartoszwojcik.investmentportfolioapi.service.inflation.InflationService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,26 +22,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class InflationController {
     private final InflationService inflationService;
 
-    @Operation
-    @GetMapping
+    @Operation(summary = "get inflation(Year-To-Year) from your country")
+    @GetMapping("/my")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public InflationDto getInflation(@Valid @RequestBody InflationCountry inflationCountry) {
-        return null;
+        return inflationService.getInflation(inflationCountry);
     }
 
-    @Operation
-    @PutMapping
+    @Operation(summary = "add new country with inflation for you")
+    @PutMapping("/add-new")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public InflationDto createInflation(@Valid @RequestBody InflationCountry inflationCountry,
                                         @Valid @RequestBody InflationDto inflationDto) {
-        return null;
+        return inflationService.createInflation(inflationCountry, inflationDto);
     }
 
-    @Operation
-    @PostMapping
+    @Operation(summary = "update information about inflation & country")
+    @PostMapping("/update")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public InflationDto updateInflation(@Valid @RequestBody InflationCountry inflationCountry,
                                         @Valid @RequestBody InflationDto inflationDto) {
-        return null;
+        return inflationService.updateInflation(inflationCountry, inflationDto);
     }
 }

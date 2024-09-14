@@ -7,6 +7,7 @@ import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 import org.bartoszwojcik.investmentportfolioapi.service.portfolio.PortfolioService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,28 +23,32 @@ import org.springframework.web.bind.annotation.RestController;
 public class PortfolioController {
     private final PortfolioService portfolioService;
 
-    @Operation
-    @GetMapping
+    @Operation(summary = "show stocks in my portfolio")
+    @GetMapping("/me")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public List<PortfolioDto> getMyPortfolio(Authentication authentication) {
         User principal = (User) authentication.getPrincipal();
-        return null;
+        return portfolioService.getMyPortfolio(principal);
     }
 
-    @Operation
-    @PostMapping
+    @Operation(summary = "buy stocks")
+    @PostMapping("/buy")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public PortfolioDto addStock(Authentication authentication,
+    public PortfolioDto buyStock(Authentication authentication,
                                  @PathVariable Long stockId) {
         User principal = (User) authentication.getPrincipal();
-        return null;
+        return portfolioService.buyStock(principal, stockId);
     }
 
-    @Operation
-    @PutMapping
+    @Operation(summary = "sell stocks")
+    @PutMapping("/sell")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public PortfolioDto sellStock(Authentication authentication,
                                   @PathVariable Long stockId) {
-        return null;
+        User principal = (User) authentication.getPrincipal();
+        return portfolioService.sellStock(principal, stockId);
     }
 }

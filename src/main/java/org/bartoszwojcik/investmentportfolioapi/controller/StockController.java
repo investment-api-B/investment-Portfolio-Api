@@ -7,9 +7,9 @@ import org.bartoszwojcik.investmentportfolioapi.dto.stock.StockDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.stock.StockSymbol;
 import org.bartoszwojcik.investmentportfolioapi.service.stock.StockService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,24 +21,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class StockController {
     private final StockService stockService;
 
-    @Operation
-    @GetMapping
+    @Operation(summary = "get available stocks in this app")
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public List<StockDto> getStocks() {
-        return null;
+        return stockService.getStocks();
     }
 
-    @Operation
-    @PostMapping
+    @Operation(summary = "add new stock to our app")
+    @PostMapping("/add-new")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public StockDto addStock(@RequestBody StockSymbol stockSymbol) {
-        return null;
+        return stockService.addStock(stockSymbol);
     }
 
-    @Operation
+    /*
+    @Operation(summary = "")
     @PutMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public List<StockDto> updateStocksPrice() {
         return null;
     }
+    */
 }
