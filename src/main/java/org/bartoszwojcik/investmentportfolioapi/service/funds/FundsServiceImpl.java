@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FundsServiceImpl implements FundsService {
+
     @Override
     public UserDto addFunds(User user) {
         return null;

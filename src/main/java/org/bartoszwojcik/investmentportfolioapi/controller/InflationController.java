@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationCountry;
 import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationValue;
 import org.bartoszwojcik.investmentportfolioapi.service.inflation.InflationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,8 +36,8 @@ public class InflationController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public InflationDto createInflation(@Valid @RequestBody InflationCountry inflationCountry,
-                                        @Valid @RequestBody InflationDto inflationDto) {
-        return inflationService.createInflation(inflationCountry, inflationDto);
+                                        @Valid @RequestBody InflationValue inflationValue) {
+        return inflationService.createInflation(inflationCountry, inflationValue);
     }
 
     @Operation(summary = "update information about inflation & country")
@@ -44,7 +45,7 @@ public class InflationController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public InflationDto updateInflation(@Valid @RequestBody InflationCountry inflationCountry,
-                                        @Valid @RequestBody InflationDto inflationDto) {
-        return inflationService.updateInflation(inflationCountry, inflationDto);
+                                        @Valid @RequestBody InflationValue inflationValue) {
+        return inflationService.updateInflation(inflationCountry, inflationValue);
     }
 }
