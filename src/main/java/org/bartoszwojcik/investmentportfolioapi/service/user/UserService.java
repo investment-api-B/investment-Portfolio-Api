@@ -1,8 +1,8 @@
 package org.bartoszwojcik.investmentportfolioapi.service.user;
 
+import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UpdateUserRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
-import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.register.RegistrationRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 

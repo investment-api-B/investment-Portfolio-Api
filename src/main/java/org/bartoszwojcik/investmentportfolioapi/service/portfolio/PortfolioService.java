@@ -1,7 +1,7 @@
 package org.bartoszwojcik.investmentportfolioapi.service.portfolio;
 
 import java.util.List;
-import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 
 public interface PortfolioService {

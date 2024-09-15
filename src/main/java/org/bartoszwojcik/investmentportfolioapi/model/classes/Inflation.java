@@ -24,7 +24,7 @@ public class Inflation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private double yearToYear;
+    private Double yearToYear;
     @Column(nullable = false)
     private String countryName;
     @Column(name = "deleted",nullable = false)

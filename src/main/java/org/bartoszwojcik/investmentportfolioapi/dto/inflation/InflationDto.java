@@ -1,8 +1,9 @@
 package org.bartoszwojcik.investmentportfolioapi.dto.inflation;
 
-import jakarta.validation.constraints.PositiveOrZero;
+import lombok.Data;
 
+@Data
 public class InflationDto {
-    @PositiveOrZero
-    private double yearToYear;
+    private String countryName;
+    private Double yearToYear;
 }

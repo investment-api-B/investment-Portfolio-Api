@@ -3,7 +3,7 @@ package org.bartoszwojcik.investmentportfolioapi.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 import org.bartoszwojcik.investmentportfolioapi.service.portfolio.PortfolioService;
 import org.springframework.http.HttpStatus;
