@@ -1,6 +1,7 @@
-package org.bartoszwojcik.investmentportfolioapi.model.serpapi.wrappers;
+package org.bartoszwojcik.investmentportfolioapi.dto.stock.internal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.Data;
 
@@ -22,7 +23,7 @@ public class AnswerBox {
     private String currency;
 
     @JsonProperty("price")
-    private double price;
+    private BigDecimal price;
 
     @JsonProperty("thumbnail")
     private String thumbnail;

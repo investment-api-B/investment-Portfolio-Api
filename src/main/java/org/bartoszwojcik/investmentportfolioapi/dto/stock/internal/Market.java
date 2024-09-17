@@ -1,4 +1,4 @@
-package org.bartoszwojcik.investmentportfolioapi.model.serpapi.wrappers;
+package org.bartoszwojcik.investmentportfolioapi.dto.stock.internal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

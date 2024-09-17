@@ -1,7 +1,7 @@
 package org.bartoszwojcik.investmentportfolioapi.service.stock;
 
 import java.util.List;
-import org.bartoszwojcik.investmentportfolioapi.dto.stock.StockDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.stock.external.StockDto;
 
 public interface StockService {
     List<StockDto> getStocks();

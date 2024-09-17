@@ -3,7 +3,7 @@ package org.bartoszwojcik.investmentportfolioapi.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.bartoszwojcik.investmentportfolioapi.dto.stock.StockDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.stock.external.StockDto;
 import org.bartoszwojcik.investmentportfolioapi.service.stock.StockService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

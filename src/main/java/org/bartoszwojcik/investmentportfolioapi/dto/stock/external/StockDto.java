@@ -1,4 +1,4 @@
-package org.bartoszwojcik.investmentportfolioapi.dto.stock;
+package org.bartoszwojcik.investmentportfolioapi.dto.stock.external;
 
 import lombok.Data;
 
