@@ -49,6 +49,6 @@ public class UsersController {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public PortfolioValueDto getMyPortfolioValue() {
-        return userService.getMyPortfolioValue();
+        return userService.getMyPortfolioValue();//------------------
     }
 }

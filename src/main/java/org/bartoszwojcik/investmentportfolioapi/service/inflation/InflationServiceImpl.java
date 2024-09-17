@@ -3,7 +3,6 @@ package org.bartoszwojcik.investmentportfolioapi.service.inflation;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationCountry;
 import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.mapper.InflationMapper;
@@ -25,15 +24,14 @@ public class InflationServiceImpl implements InflationService {
     }
 
     @Override
-    public InflationDto getInflation(InflationCountry country) {
-        Inflation inflation = inflationRepository.findByCountryName(country.countryName())
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "Could not find Inflation with country name " + country.countryName()
-                                + " please add information about this inflation"
-                )
-        );
+    public InflationDto getInflation(String country) {
         return inflationMapper.toInflationDto(
-                inflation
+                inflationRepository.findByCountryName(country).orElseThrow(
+                        () -> new EntityNotFoundException(
+                                "We don't have an inflation with the country '"
+                                        + country + "'"
+                        )
+                )
         );
     }
 

@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationCountry;
 import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.service.inflation.InflationService;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +28,7 @@ public class InflationController {
     @GetMapping("/my")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public InflationDto getInflation(@Valid @RequestBody InflationCountry inflationCountry) {
+    public InflationDto getInflation(@RequestParam String inflationCountry) {
         return inflationService.getInflation(inflationCountry);
     }
 

@@ -55,17 +55,16 @@ public class UserServiceImpl implements UserService {
                 userRepository.save(user));
     }
 
-    @Override
-    public PortfolioValueDto getMyPortfolioValue() {
-        return null;
-    }
-
     private void checkIfUserExists(RegistrationRequestDto requestDto) {
         if (userRepository.findByEmail(requestDto.getEmail()).isPresent()) {
             throw new RegistrationException(
                     "Email address already in use"
             );
-
         }
+    }
+
+    @Override
+    public PortfolioValueDto getMyPortfolioValue() {
+        return null;
     }
 }

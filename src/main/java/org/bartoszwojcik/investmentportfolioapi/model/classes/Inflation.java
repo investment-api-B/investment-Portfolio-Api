@@ -25,7 +25,7 @@ public class Inflation {
     private Long id;
     @Column(nullable = false)
     private Double yearToYear;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String countryName;
     @Column(name = "deleted",nullable = false)
     private boolean isDeleted = false;
