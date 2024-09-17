@@ -1,41 +1,41 @@
 # Investment Portfolio API
 
-**Investment Portfolio API** to backendowy serwis API, który jest w trakcie rozwoju. Projekt ma na celu uproszczenie zarządzania portfelami inwestycyjnymi, oferując zestaw interfejsów API do zarządzania portfelami i inwestycjami.
+**Investment Portfolio API** is a backend API service currently under development. The project aims to simplify the management of investment portfolios by providing a set of API interfaces for managing portfolios and investments.
 
-## Status Projektu
+## Project Status
 
-Prace nad projektem są w toku. Wkrótce zostaną dodane dalsze funkcjonalności i aktualizacje. Śledź postępy projektu, aby być na bieżąco z nowymi wersjami i funkcjami.
+Work on the project is ongoing. Additional functionalities and updates will be added soon. Stay tuned for progress updates on new versions and features.
 
-## Technologie i Narzędzia
+## Technologies and Tools
 
-Projekt wykorzystuje szereg nowoczesnych technologii i narzędzi:
+The project utilizes a range of modern technologies and tools:
 
-- **Spring Boot 3.3.3** - Ułatwia szybki rozwój aplikacji Java z minimalną konfiguracją.
-- **Spring Security** - Zapewnia bezpieczny dostęp do API przez autoryzację i uwierzytelnianie.
-- **Spring Data JPA** - Uproszcza zarządzanie danymi za pomocą Java Persistence API.
-- **Swagger (Springdoc OpenAPI)** - Automatycznie generuje dokumentację API.
-- **MapStruct** - Ułatwia mapowanie obiektów DTO w aplikacji.
-- **JWT (JSON Web Token)** - Implementuje tokeny JWT dla bezpiecznej autoryzacji.
-- **Liquibase** - Zarządza migracjami bazy danych i wersjonowaniem schematów.
-- **Hibernate Validator** - Waliduje dane wejściowe.
-- **Testcontainers** - Tworzy izolowane środowiska testowe przy użyciu kontenerów Docker.
-- **H2 Database** - Używane do celów testowych.
-- **MySQL** - Używane jako baza danych produkcyjna.
-- **Lombok** - Redukuje kod szablonowy poprzez automatyczne generowanie getterów, setterów i innych metod.
-- **Stripe API** - Integruje się z systemem płatności Stripe w celu przetwarzania płatności.
-- **SerpApi** - Używane do integracji z wyszukiwarką Google w celu pozyskiwania wyników wyszukiwania.
+- **Spring Boot 3.3.3** - Facilitates rapid development of Java applications with minimal configuration.
+- **Spring Security** - Provides secure access to the API through authentication and authorization.
+- **Spring Data JPA** - Simplifies data management with Java Persistence API.
+- **Swagger (Springdoc OpenAPI)** - Automatically generates API documentation.
+- **MapStruct** - Facilitates the mapping of DTO objects within the application.
+- **JWT (JSON Web Token)** - Implements JWT tokens for secure authentication.
+- **Liquibase** - Manages database migrations and schema versioning.
+- **Hibernate Validator** - Validates input data.
+- **Testcontainers** - Creates isolated testing environments using Docker containers.
+- **H2 Database** - Used for testing purposes.
+- **MySQL** - Used as the production database.
+- **Lombok** - Reduces boilerplate code by automatically generating getters, setters, and other methods.
+- **Stripe API** - Integrates with the Stripe payment system for processing payments.
+- **SerpApi** - Used for integrating with Google Search to retrieve search results.
 
-## Instrukcje Konfiguracyjne
+## Configuration Instructions
 
-### Wymagania Wstępne
+### Prerequisites
 
 - Java 17
-- Docker (jeśli używane do testów)
+- Docker (if used for testing)
 
-### Kroki Konfiguracji
+### Setup Steps
 
-1. Sprawdź, czy masz zainstalowany Git: `git --version`
-2. Sklonuj repozytorium przy użyciu SSH: `git clone git@github.com:...`
-3. Alternatywnie, użyj HTTPS: `git clone https://...`
-4. Przejdź do sklonowanego repozytorium: `cd investment-portfolio-api`
-5. (Opcjonalnie) Sprawdź status repozytorium: `git status`
+1. Check if you have Git installed: `git --version`
+2. Clone the repository using SSH: `git clone git@github.com:...`
+3. Alternatively, use HTTPS: `git clone https://...`
+4. Navigate into the cloned repository: `cd investment-portfolio-api`
+5. (Optional) Check the repository status: `git status`
