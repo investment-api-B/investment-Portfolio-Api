@@ -18,7 +18,6 @@ The project utilizes a range of modern technologies and tools:
 - **JWT (JSON Web Token)** - Implements JWT tokens for secure authentication.
 - **Liquibase** - Manages database migrations and schema versioning.
 - **Hibernate Validator** - Validates input data.
-- **Testcontainers** - Creates isolated testing environments using Docker containers.
 - **H2 Database** - Used for testing purposes.
 - **MySQL** - Used as the production database.
 - **Lombok** - Reduces boilerplate code by automatically generating getters, setters, and other methods.
@@ -30,7 +29,6 @@ The project utilizes a range of modern technologies and tools:
 ### Prerequisites
 
 - Java 17
-- Docker (if used for testing)
 
 ### Setup Steps
 
