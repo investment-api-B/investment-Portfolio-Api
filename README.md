@@ -66,6 +66,8 @@ The application is designed with modular controllers that handle different busin
 
 ## Data Models
 
+![Architecture Diagram](investment_portfolio.png)
+
 ### 1. Funds
 
 The `Funds` entity represents a user's payment session for adding funds. It tracks payment details, status, and integrates with Stripe for payment processing.
