@@ -1,10 +1,10 @@
 package org.bartoszwojcik.investmentportfolioapi.mapper;
 
 import org.bartoszwojcik.investmentportfolioapi.config.MapperConfig;
+import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.login.LoginRequestDto;
-import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioDto;
-import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.register.RegistrationRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 import org.mapstruct.Mapper;

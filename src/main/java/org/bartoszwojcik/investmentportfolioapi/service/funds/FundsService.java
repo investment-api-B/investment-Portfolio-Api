@@ -1,10 +1,13 @@
 package org.bartoszwojcik.investmentportfolioapi.service.funds;
 
-import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
+import java.math.BigDecimal;
+import org.bartoszwojcik.investmentportfolioapi.dto.funds.FundsDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 
 public interface FundsService {
-    UserDto addFunds(User user);
+    FundsDto createPayment(User user, BigDecimal amount);
 
-    UserDto takeFunds(User user);
+    String successPayment(String sessionId);
+
+    String cancelPayment(String sessionId);
 }

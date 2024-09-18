@@ -1,13 +1,16 @@
 package org.bartoszwojcik.investmentportfolioapi.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
-import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.funds.FundsDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 import org.bartoszwojcik.investmentportfolioapi.service.funds.FundsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,20 +23,28 @@ public class FundsController {
     private final FundsService fundsService;
 
     @Operation(summary = "add funds to your account")
-    @PostMapping("/add")
+    @PostMapping("/add/{amount}")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public UserDto addFunds(Authentication authentication) {
-        User principal = (User) authentication.getPrincipal();
-        return fundsService.addFunds(principal);
+    public FundsDto createPaymentSession(Authentication authentication,
+                                         @PathVariable BigDecimal amount) {
+        User user = (User) authentication.getPrincipal();
+        return fundsService.createPayment(user, amount);
     }
 
-    @Operation(summary = "take funds from your account")
-    @PostMapping("/take")
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public UserDto takeFunds(Authentication authentication) {
-        User principal = (User) authentication.getPrincipal();
-        return fundsService.takeFunds(principal);
+    @Operation(summary = "Check successful Stripe adding funds")
+    @GetMapping("/success/{sessionId}")
+    @PreAuthorize("hasAnyAuthority('MANAGER', 'CUSTOMER')")
+    @ResponseStatus(HttpStatus.OK)
+    public String paymentSuccess(@PathVariable String sessionId) {
+        return fundsService.successPayment(sessionId);
+    }
+
+    @Operation(summary = "Return adding funds cancel message")
+    @GetMapping("/cancel/{sessionId}")
+    @PreAuthorize("hasAnyAuthority('MANAGER', 'CUSTOMER')")
+    @ResponseStatus(HttpStatus.OK)
+    public String paymentCancel(@PathVariable String sessionId) {
+        return fundsService.cancelPayment(sessionId);
     }
 }

@@ -5,7 +5,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UpdateUserRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
-import org.bartoszwojcik.investmentportfolioapi.dto.user.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 import org.bartoszwojcik.investmentportfolioapi.service.user.UserService;
 import org.springframework.http.HttpStatus;
@@ -41,14 +40,5 @@ public class UsersController {
                                    @RequestBody @Valid UpdateUserRequestDto request) {
         User user = (User) authentication.getPrincipal();
         return userService.updateMyProfile(user, request);
-    }
-
-    @Operation(summary = "Show my portfolio value",
-                description = "cash + stocks")
-    @GetMapping("/me/portfolio-value")
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public PortfolioValueDto getMyPortfolioValue() {
-        return userService.getMyPortfolioValue();
     }
 }

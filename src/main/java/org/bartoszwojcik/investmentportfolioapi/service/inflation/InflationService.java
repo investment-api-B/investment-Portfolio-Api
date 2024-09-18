@@ -1,13 +1,15 @@
 package org.bartoszwojcik.investmentportfolioapi.service.inflation;
 
-import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationCountry;
+import java.util.List;
 import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationDto;
-import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationValue;
+import org.bartoszwojcik.investmentportfolioapi.dto.inflation.InflationRequestDto;
 
 public interface InflationService {
-    InflationDto getInflation(InflationCountry country);
+    List<InflationDto> getInflationS();
 
-    InflationDto createInflation(InflationCountry country, InflationValue inflationValue);
+    InflationDto getInflation(String country);
 
-    InflationDto updateInflation(InflationCountry country, InflationValue inflationValue);
+    InflationDto createInflation(InflationRequestDto requestDto);
+
+    InflationDto updateInflation(InflationRequestDto requestDto);
 }
