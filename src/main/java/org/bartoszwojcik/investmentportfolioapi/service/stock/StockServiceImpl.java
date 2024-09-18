@@ -27,14 +27,16 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public String addStock(String stockSymbol) {
-        GooglePageForStocksWrapper stocksWrapper = serpApiConfig.getCompanyInformation(stockSymbol);
+        GooglePageForStocksWrapper companyInformation = serpApiConfig
+                .getCompanyInformation(stockSymbol);
+
         Stock stock = new Stock();
-        stock.setStockSymbol(stocksWrapper.getAnswerBox().getStock());
+        stock.setStockSymbol(companyInformation.getAnswerBox().getStock());
         stockRepository.save(stock);
-        String companyName = stocksWrapper.getAnswerBox().getTitle();
-        String companyTicker = stocksWrapper.getAnswerBox().getStock();
-        BigDecimal companyPrice = stocksWrapper.getAnswerBox().getPrice();
-        String currency = stocksWrapper.getAnswerBox().getCurrency();
+        String companyName = companyInformation.getAnswerBox().getTitle();
+        String companyTicker = companyInformation.getAnswerBox().getStock();
+        BigDecimal companyPrice = companyInformation.getAnswerBox().getPrice();
+        String currency = companyInformation.getAnswerBox().getCurrency();
         return companyName + " with ticker: " + companyTicker
                 + " and price: " + companyPrice + " " + currency + " added to database";
     }

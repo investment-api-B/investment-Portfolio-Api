@@ -1,6 +1,5 @@
 package org.bartoszwojcik.investmentportfolioapi.service.user;
 
-import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UpdateUserRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.register.RegistrationRequestDto;
@@ -13,5 +12,4 @@ public interface UserService {
 
     UserDto updateMyProfile(User user, UpdateUserRequestDto request);
 
-    PortfolioValueDto getMyPortfolioValue();
 }

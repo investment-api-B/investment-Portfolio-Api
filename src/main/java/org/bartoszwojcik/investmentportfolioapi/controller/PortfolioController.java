@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
 import org.bartoszwojcik.investmentportfolioapi.service.portfolio.PortfolioService;
 import org.springframework.http.HttpStatus;
@@ -33,22 +34,34 @@ public class PortfolioController {
     }
 
     @Operation(summary = "buy stocks")
-    @PostMapping("/buy")
+    @PostMapping("/buy/{stockId}/{quantity}")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public PortfolioDto buyStock(Authentication authentication,
-                                 @PathVariable Long stockId) {
+                                 @PathVariable Long stockId,
+                                 @PathVariable Integer quantity) {
         User principal = (User) authentication.getPrincipal();
-        return portfolioService.buyStock(principal, stockId);
+        return portfolioService.buyStock(principal, stockId, quantity);
     }
 
     @Operation(summary = "sell stocks")
-    @PutMapping("/sell")
+    @PutMapping("/sell/{stockId}/{quantity}")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public PortfolioDto sellStock(Authentication authentication,
-                                  @PathVariable Long stockId) {
+                                  @PathVariable Long stockId,
+                                  @PathVariable Integer quantity) {
         User principal = (User) authentication.getPrincipal();
-        return portfolioService.sellStock(principal, stockId);
+        return portfolioService.sellStock(principal, stockId, quantity);
+    }
+
+    @Operation(summary = "Show my portfolio value",
+            description = "cash + stocks")
+    @GetMapping("/me/portfolio-value")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public PortfolioValueDto getMyPortfolioValue(Authentication authentication) {
+        User principal = (User) authentication.getPrincipal();
+        return portfolioService.getMyPortfolioValue(principal);//------------------
     }
 }

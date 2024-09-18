@@ -3,7 +3,6 @@ package org.bartoszwojcik.investmentportfolioapi.service.user;
 import java.math.BigDecimal;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
-import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UpdateUserRequestDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.UserDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.user.register.RegistrationRequestDto;
@@ -61,10 +60,5 @@ public class UserServiceImpl implements UserService {
                     "Email address already in use"
             );
         }
-    }
-
-    @Override
-    public PortfolioValueDto getMyPortfolioValue() {
-        return null;
     }
 }
