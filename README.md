@@ -18,6 +18,7 @@ This project utilizes a variety of modern tools to build a scalable and secure A
 - **MySQL** - Production-grade database for persistence.
 - **Lombok** - Reduces boilerplate code through annotations.
 - **Stripe** - Facilitates payment processing.
+- **SerpApi** - Used for integrating with Google Search to retrieve search results.
 - **Checkstyle** - Ensures code quality by adhering to coding standards.
 
 ## Architecture Overview
