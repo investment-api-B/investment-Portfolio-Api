@@ -1,11 +1,10 @@
 package org.bartoszwojcik.investmentportfolioapi.service.notification;
 
+import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.bartoszwojcik.investmentportfolioapi.telegram.NotificationBot;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
