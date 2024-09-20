@@ -1,155 +1,186 @@
 # Investment-Portfolio API
 
-The **Investment-Portfolio API** is a backend application designed to help users manage their investment portfolios. The API provides functionality for users to track stocks, manage their investments, check inflation rates, and handle payments securely. This service integrates with various financial data sources, such as Stripe for payments, to ensure accurate and secure portfolio management.
+The **Investment-Portfolio API** offers users a comprehensive platform for managing investments, tracking stock portfolios, checking inflation rates, and securely handling payments through Stripe integration. This API supports both users and administrators, ensuring accurate and secure portfolio management with a robust set of features.
 
-## Technologies and Tools
+## Technologies Used
 
-This project utilizes a variety of modern tools to build a scalable and secure API:
+- **Spring Boot 3.3.3**: Simplified application development.
+- **Spring Security**: Secures the API with authentication and authorization.
+- **Spring Data JPA**: Manages data persistence using the Java Persistence API.
+- **JWT (JSON Web Token)**: Provides stateless authentication.
+- **MapStruct**: Efficient DTO-to-Entity mapping.
+- **Swagger (Springdoc OpenAPI)**: Automatically generates API documentation.
+- **Liquibase**: Database version control.
+- **Testcontainers**: Integration testing with Docker containers.
+- **MySQL**: Production database for persistent data storage.
+- **H2 Database**: In-memory database for testing purposes.
+- **Stripe**: Payment processing integration.
+- **SerpApi**: Retrieves Google Search results for financial data.
+- **Lombok**: Reduces boilerplate code via annotations.
+- **Checkstyle**: Enforces coding standards.
+- **Telegram API**: Sends notifications to admins, such as alerts for fund withdrawals.
 
-- **Spring Boot 3.3.3** - Simplifies the creation of Java-based web applications with minimal configuration.
-- **Spring Security** - Implements authentication and authorization for secure access.
-- **Spring Data JPA** - Manages data persistence with the Java Persistence API.
-- **Swagger (Springdoc OpenAPI)** - Automatically generates API documentation.
-- **JWT (JSON Web Token)** - Handles authentication with stateless JWT tokens.
-- **MapStruct** - Simplifies mapping between DTOs and entities.
-- **Liquibase** - Provides version control for the database schema.
-- **Testcontainers** - Facilitates integration testing using Docker containers.
-- **H2 Database** - In-memory database for testing purposes.
-- **MySQL** - Production-grade database for persistence.
-- **Lombok** - Reduces boilerplate code through annotations.
-- **Stripe** - Facilitates payment processing.
-- **SerpApi** - Used for integrating with Google Search to retrieve search results.
-- **Checkstyle** - Ensures code quality by adhering to coding standards.
+---
 
 ## Architecture Overview
 
-The application is designed with modular controllers that handle different business functions, including user management, portfolio handling, inflation data, and payments.
+The API is structured around modular controllers handling key business domains:
+- **Funds Management**: Handles user payments via Stripe and notifies admins about withdrawals via Telegram.
+- **Inflation Service**: Provides and updates inflation data.
+- **Portfolio Management**: Manages user portfolios (buy, sell stocks).
+- **Stock Management**: Administers stock data.
+- **User Management**: Manages user profiles and roles.
+- **Investment Calculator**: Offers investment forecasting, with or without inflation adjustments.
 
-- **Funds Management:** Handles adding and tracking payments through Stripe.
-- **Inflation Service:** Provides inflation data, either for a specific country or globally.
-- **Portfolio Management:** Manages users' stock portfolios, including buying, selling, and checking stock values.
-- **Stock Management:** Provides stock data and allows admins to add new stocks.
-- **User Management:** Handles user profiles and roles.
+### Investment Calculator Controller
 
-### API Endpoints
+The **Investment Calculator Controller** is responsible for calculating the future value of investments, both with and without adjusting for inflation. It supports single payments and recurring contributions.
 
-### 1. Funds Controller
+- **Single Payment Calculations**:
+  - **Without Inflation**: Provides the future value of a one-time investment.
+  - **With Inflation**: Adjusts for inflation in calculating the future value of a one-time investment for a specific country.
 
-- **POST** `/funds/add/{amount}` - Adds funds to the user's account (Stripe integration).
-- **GET** `/funds/success/{sessionId}` - Checks if the payment was successful.
-- **GET** `/funds/cancel/{sessionId}` - Handles canceled payment sessions.
+- **Recurring Contribution Calculations**:
+  - **Without Inflation**: Computes the future value of investments made regularly (e.g., monthly).
+  - **With Inflation**: Adjusts for inflation in calculating the future value of regular investments for a specific country.
 
-### 2. Inflation Controller
+---
 
-- **GET** `/inflation/my` - Retrieves year-over-year inflation for a specific country.
-- **GET** `/inflation/all` - Retrieves all inflation data from the database.
-- **PUT** `/inflation/add-new` - Adds new inflation data (Admin only).
-- **POST** `/inflation/update` - Updates inflation data (Admin only).
+## API Endpoints
 
-### 3. Portfolio Controller
+### Funds Controller
+- **POST** `/funds/add/{amount}`: Adds funds to a user's account (Stripe integration).
+- **GET** `/funds/success/{sessionId}`: Verifies a successful payment session.
+- **GET** `/funds/cancel/{sessionId}`: Handles payment cancellations.
+- **POST** `/funds/withdrawal/{amount}`: Withdraws funds and notifies admin via Telegram.
 
-- **GET** `/portfolio/me` - Retrieves the user's stock portfolio.
-- **POST** `/portfolio/buy/{stockId}/{quantity}` - Buys stock for the user's portfolio.
-- **PUT** `/portfolio/sell/{stockId}/{quantity}` - Sells stock from the user's portfolio.
-- **GET** `/portfolio/me/portfolio-value` - Gets the total value of the user's portfolio (cash + stocks).
+### Inflation Controller
+- **GET** `/inflation/my`: Retrieves the inflation rate for a specific country.
+- **GET** `/inflation/all`: Retrieves all inflation data from the database.
+- **PUT** `/inflation/add-new`: Adds new inflation data (Admin only).
+- **POST** `/inflation/update`: Updates inflation data (Admin only).
 
-### 4. Stock Controller
+### Investment Calculator Controller
+- **GET** `/count-it-up/one-payment/{rateOfReturnInPercent}/{years}`: Calculates investment value (no inflation).
+- **GET** `/count-it-up/one-payment/{inflationCountry}/{rateOfReturnInPercent}/{years}`: Inflation-adjusted investment value.
+- **GET** `/count-it-up/many-times/{perMonth}/{rateOfReturnInPercent}/{years}`: Investment value with monthly contributions.
+- **GET** `/count-it-up/many-times/{inflationCountry}/{perMonth}/{rateOfReturnInPercent}/{years}`: Inflation-adjusted with monthly contributions.
 
-- **GET** `/stocks/all` - Retrieves all available stocks.
-- **POST** `/stocks/add-new` - Adds a new stock to the application (Admin only).
-- **POST** `/stocks/add-new/force` - Adds a stock without validation (Admin only).
+### Portfolio Controller
+- **GET** `/portfolio/me`: Retrieves the current user's stock portfolio.
+- **POST** `/portfolio/buy/{stockId}/{quantity}`: Buys stocks for the user's portfolio.
+- **PUT** `/portfolio/sell/{stockId}/{quantity}`: Sells stocks from the user's portfolio.
+- **GET** `/portfolio/me/portfolio-value`: Returns the total value of the user's portfolio (cash + stocks).
 
-### 5. Users Controller
+### Stock Controller
+- **GET** `/stocks/all`: Retrieves all available stocks.
+- **POST** `/stocks/add-new`: Adds a new stock (Admin only).
+- **POST** `/stocks/add-new/force`: Adds a stock without validation (Admin only).
 
-- **GET** `/users/me` - Retrieves the authenticated user's profile.
-- **PUT** `/users/me` - Updates the authenticated user's profile.
+### Users Controller
+- **GET** `/users/me`: Retrieves the authenticated user's profile.
+- **PUT** `/users/me`: Updates the authenticated user's profile.
+
+---
 
 ## Data Models
 
 ![Architecture Diagram](investment_portfolio.png)
 
-### 1. Funds
+### Funds
 
-The `Funds` entity represents a user's payment session for adding funds. It tracks payment details, status, and integrates with Stripe for payment processing.
+Represents user payment sessions, tracking details and status, integrated with Stripe.
 
-- **id:** Long - Primary key, auto-generated.
-- **userId:** Long - The ID of the user associated with the payment.
-- **status:** Enum (PENDING, PAUSED, PAID) - The current status of the payment.
-- **type:** Enum (ADDING, FINE) - The type of payment (either adding funds or a fine).
-- **sessionUrl:** String - The URL for the Stripe payment session.
-- **sessionId:** String - Unique session ID provided by Stripe.
-- **amountToPay:** BigDecimal - The total amount to be paid (precision: 10, scale: 2).
-- **isDeleted:** Boolean - Marks the entity as soft-deleted (`false` means active).
+| Field        | Type       | Description                                       |
+|--------------|------------|---------------------------------------------------|
+| `id`         | Long       | Auto-generated primary key                        |
+| `userId`     | Long       | ID of the user associated with the payment        |
+| `status`     | Enum       | Payment status: PENDING, PAUSED, PAID             |
+| `type`       | Enum       | Payment type: ADDING, FINE                        |
+| `sessionUrl` | String     | Stripe session URL                                |
+| `sessionId`  | String     | Unique Stripe session ID                          |
+| `amountToPay`| BigDecimal | Payment amount (precision: 10, scale: 2)          |
+| `isDeleted`  | Boolean    | Soft delete flag (`false` = active)               |
 
-### 2. Inflation
+### Inflation
 
-The `Inflation` entity stores year-over-year inflation data for different countries.
+Stores inflation data for various countries.
 
-- **id:** Long - Primary key, auto-generated.
-- **yearToYear:** Double - The inflation rate from year to year.
-- **countryName:** String - The name of the country associated with the inflation data (unique).
-- **isDeleted:** Boolean - Marks the entity as soft-deleted (`false` means active).
+| Field          | Type    | Description                            |
+|----------------|---------|----------------------------------------|
+| `id`           | Long    | Auto-generated primary key             |
+| `yearToYear`   | Double  | Year-over-year inflation rate          |
+| `countryName`  | String  | Country name (unique)                  |
+| `isDeleted`    | Boolean | Soft delete flag (`false` = active)    |
 
-### 3. Role
+### Role
 
-The `Role` entity defines the different roles a user can have in the system.
+Defines user roles in the system.
 
-- **id:** Long - Primary key, auto-generated.
-- **name:** Enum (ROLE_USER, ROLE_ADMIN) - The name of the role (unique).
-- **isDeleted:** Boolean - Marks the entity as soft-deleted (`false` means active).
+| Field      | Type    | Description                            |
+|------------|---------|----------------------------------------|
+| `id`       | Long    | Auto-generated primary key             |
+| `name`     | Enum    | Role name: ROLE_USER, ROLE_ADMIN       |
+| `isDeleted`| Boolean | Soft delete flag (`false` = active)    |
 
-### 4. Stock
+### Stock
 
-The `Stock` entity represents the stocks available in the portfolio management system.
+Represents available stocks in the system.
 
-- **id:** Long - Primary key, auto-generated.
-- **stockSymbol:** String - The stock ticker symbol (unique).
-- **isDeleted:** Boolean - Marks the entity as soft-deleted (`false` means active).
+| Field        | Type    | Description                            |
+|--------------|---------|----------------------------------------|
+| `id`         | Long    | Auto-generated primary key             |
+| `stockSymbol`| String  | Stock ticker symbol (unique)           |
+| `isDeleted`  | Boolean | Soft delete flag (`false` = active)    |
 
-### 5. User
+### User
 
-The `User` entity represents a registered user in the system.
+Represents registered users in the system.
 
-- **id:** Long - Primary key, auto-generated.
-- **email:** String - The user's email (unique).
-- **password:** String - The user's hashed password.
-- **firstName:** String - The user's first name.
-- **lastName:** String - The user's last name.
-- **cash:** BigDecimal - The user's available cash balance for trading.
-- **stocks:** Set<UserStock> - A collection of stocks the user owns.
-- **roles:** Set<Role> - The roles assigned to the user (many-to-many relationship).
-- **isDeleted:** Boolean - Marks the entity as soft-deleted (`false` means active).
+| Field       | Type       | Description                                       |
+|-------------|------------|---------------------------------------------------|
+| `id`        | Long       | Auto-generated primary key                        |
+| `email`     | String     | User's email (unique)                             |
+| `password`  | String     | User's hashed password                            |
+| `firstName` | String     | User's first name                                 |
+| `lastName`  | String     | User's last name                                  |
+| `cash`      | BigDecimal | Available cash balance                            |
+| `stocks`    | Set<UserStock> | Stocks owned by the user                      |
+| `roles`     | Set<Role>  | Roles assigned to the user                        |
+| `isDeleted` | Boolean    | Soft delete flag (`false` = active)               |
 
-### 6. UserStock
+### UserStock
 
-The `UserStock` entity represents the relationship between a user and the stocks they own.
+Represents the relationship between users and their stock holdings.
 
-- **id:** Long - Primary key, auto-generated.
-- **user:** User - The user who owns the stock (many-to-one relationship).
-- **stock:** Stock - The stock that the user owns (many-to-one relationship).
-- **quantity:** Integer - The number of shares the user owns.
-- **isDeleted:** Boolean - Marks the entity as soft-deleted (`false` means active).
+| Field       | Type   | Description                               |
+|-------------|--------|-------------------------------------------|
+| `id`        | Long   | Auto-generated primary key                |
+| `user`      | User   | User who owns the stock                   |
+| `stock`     | Stock  | Stock owned by the user                   |
+| `quantity`  | Integer| Number of shares owned                    |
+| `isDeleted` | Boolean| Soft delete flag (`false` = active)       |
 
 ### Enums
 
-- **PaymentType** - Enum that defines the type of payment:
-  - `ADDING`: Payment for adding funds.
-  - `FINE`: Payment for fines.
-
-- **RoleName** - Enum that defines the user roles:
+- **PaymentType**: Describes payment types:
+  - `ADDING`: Funds addition.
+  - `FINE`: Fine payment.
+  
+- **RoleName**: Describes user roles:
   - `ROLE_USER`: Regular user role.
-  - `ROLE_ADMIN`: Admin role with elevated privileges.
+  - `ROLE_ADMIN`: Admin role with extra privileges.
 
-- **Status** - Enum that defines the status of a payment:
-  - `PENDING`: Payment is initiated but not yet completed.
-  - `PAUSED`: Payment is temporarily paused.
-  - `PAID`: Payment is completed successfully.
+- **Status**: Payment status:
+  - `PENDING`: Payment initiated but incomplete.
+  - `PAUSED`: Payment temporarily paused.
+  - `PAID`: Payment successfully completed.
 
+---
 
 ## Setup Instructions
 
 ### Prerequisites
-
 - Java 17
 - Docker
 
@@ -161,8 +192,9 @@ The `UserStock` entity represents the relationship between a user and the stocks
 4. Navigate into the cloned repository: `cd jv-car-sharing-service`
 5. (Optional) Check the repository status: `git status`
 
-### Build the project:
-./mvnw clean package
+### Build the project (Docker):
+- ./mvnw clean package
+- docker compose up --build
 
 ### Start the project:
  **Start Docker**: Make sure Docker is up and running before you proceed with the setup.
