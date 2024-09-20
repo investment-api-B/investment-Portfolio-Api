@@ -10,4 +10,6 @@ public interface FundsService {
     String successPayment(String sessionId);
 
     String cancelPayment(String sessionId);
+
+    String withdrawal(User user, BigDecimal amount);
 }

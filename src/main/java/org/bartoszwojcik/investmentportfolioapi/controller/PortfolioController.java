@@ -62,6 +62,6 @@ public class PortfolioController {
     @ResponseStatus(HttpStatus.OK)
     public PortfolioValueDto getMyPortfolioValue(Authentication authentication) {
         User principal = (User) authentication.getPrincipal();
-        return portfolioService.getMyPortfolioValue(principal);//------------------
+        return portfolioService.getMyPortfolioValue(principal);
     }
 }

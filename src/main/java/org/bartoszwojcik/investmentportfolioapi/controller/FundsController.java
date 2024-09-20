@@ -47,4 +47,15 @@ public class FundsController {
     public String paymentCancel(@PathVariable String sessionId) {
         return fundsService.cancelPayment(sessionId);
     }
+
+    @Operation(summary = "send information to telegram"
+            + " information about withdrawal funds")
+    @PostMapping("withdrawal/{amount}")
+    @PreAuthorize("hasAnyAuthority('MANAGER', 'CUSTOMER')")
+    @ResponseStatus(HttpStatus.OK)
+    public String withdrawalFunds(Authentication authentication,
+                                  @PathVariable BigDecimal amount) {
+        User principal = (User) authentication.getPrincipal();
+        return fundsService.withdrawal(principal, amount);
+    }
 }

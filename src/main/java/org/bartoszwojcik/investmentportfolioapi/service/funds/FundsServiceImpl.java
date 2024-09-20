@@ -14,6 +14,7 @@ import org.bartoszwojcik.investmentportfolioapi.model.enums.PaymentType;
 import org.bartoszwojcik.investmentportfolioapi.model.enums.Status;
 import org.bartoszwojcik.investmentportfolioapi.repository.funds.FundsRepository;
 import org.bartoszwojcik.investmentportfolioapi.repository.user.UserRepository;
+import org.bartoszwojcik.investmentportfolioapi.service.notification.NotificationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class FundsServiceImpl implements FundsService {
     private final FundsMapper fundsMapper;
     private final FundsRepository fundsRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     @Value("${domain}")
     private String domain;
@@ -142,5 +144,16 @@ public class FundsServiceImpl implements FundsService {
             throw new PaymentException(
                     "cannot retrieve payment cancel", e);
         }
+    }
+
+    @Override
+    public String withdrawal(User user, BigDecimal amount) {
+        String email = user.getEmail();
+        user.setCash(user.getCash().subtract(amount));
+        userRepository.save(user);
+
+        return notificationService.userWannaWithdrawal(
+                email, amount
+        );
     }
 }
