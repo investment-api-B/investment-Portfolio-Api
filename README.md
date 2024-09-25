@@ -22,6 +22,33 @@ The **Investment-Portfolio API** offers users a comprehensive platform for manag
 
 ---
 
+## API Setup Instructions
+To integrate and test APIs such as Stripe, SerpApi, and Telegram, follow the steps below to create and manage your own API keys:
+1. Stripe API
+- Create a Stripe Account:
+  - Go to the Stripe website and sign up for an account.
+- Generate Secret Key:
+    - Once logged in, navigate to the API keys section (usually under "Developers"). Generate and copy the Secret Key (e.g., sk_test_... for testing purposes).
+2. SerpApi
+- Create a SerpApi Account:
+  - Visit SerpApi and sign up for an account.
+- Get Your Private API Key:
+    - After logging in, go to your dashboard and copy your Private API Key for authentication in your code.
+3. Telegram Bot API
+- Create a Telegram Bot:
+  - Open Telegram and chat with BotFather.
+- Create a New Bot:
+  - Use the command /newbot and follow the steps to create a bot.
+- Save Your API Key:
+  - After the bot is created, BotFather will provide an API token. Save this token to use in your application.
+4. Test with GPW Stocks (Warsaw Stock Exchange)
+- For testing purposes, it is recommended to use stocks from the GPW (Giełda Papierów Wartościowych) like:
+  - KGH (KGHM Polska Miedź S.A.)
+  - PKN (PKN Orlen S.A.)
+  - or other GPW-listed companies.
+#### (copy your keys to application.properties)
+---
+
 ## Architecture Overview
 
 The API is structured around modular controllers handling key business domains:
