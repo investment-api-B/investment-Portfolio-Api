@@ -19,6 +19,7 @@ The **Investment-Portfolio API** offers users a comprehensive platform for manag
 - **Lombok**: Reduces boilerplate code via annotations.
 - **Checkstyle**: Enforces coding standards.
 - **Telegram API**: Sends notifications to admins, such as alerts for fund withdrawals.
+- **currencyApi**: Automatically converts foreign currencies into PLN on which the entire portfolio is based
 
 ---
 
@@ -41,11 +42,11 @@ To integrate and test APIs such as Stripe, SerpApi, and Telegram, follow the ste
   - Use the command /newbot and follow the steps to create a bot.
 - Save Your API Key:
   - After the bot is created, BotFather will provide an API token. Save this token to use in your application.
-4. Test with GPW Stocks (Warsaw Stock Exchange)
-- For testing purposes, it is recommended to use stocks from the GPW (Giełda Papierów Wartościowych) like:
-  - KGH (KGHM Polska Miedź S.A.)
-  - PKN (PKN Orlen S.A.)
-  - or other GPW-listed companies.
+4. currencyApi
+- Create a currencyApi Account:
+  - Visit currencyApi and sign up for an account.
+- Get Your Private API Key:
+    - After logging in, go to your dashboard and copy your Private API Key for authentication in your code.
 #### (copy your keys to application.properties)
 ---
 
