@@ -120,6 +120,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                 .getCompanyInformation(stock.getStockSymbol());
 
         BigDecimal pricePerStock = companyInformation.getAnswerBox().getPrice();
+        // get currency
         BigDecimal total = pricePerStock.multiply(BigDecimal.valueOf(quantity));
         return total;
     }
@@ -156,6 +157,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                 .getCompanyInformation(us.getStock().getStockSymbol());
 
         BigDecimal pricePerStock = companyInformation.getAnswerBox().getPrice();
+        // get currency
         Integer quantity = us.getQuantity();
 
         return pricePerStock.multiply(BigDecimal.valueOf(quantity));

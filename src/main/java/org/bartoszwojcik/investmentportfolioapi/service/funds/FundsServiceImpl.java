@@ -149,6 +149,11 @@ public class FundsServiceImpl implements FundsService {
     @Override
     public String withdrawal(User user, BigDecimal amount) {
         String email = user.getEmail();
+        // if user.cash < amount - exception
+        if (user.getCash().compareTo(amount) < 0) {
+            throw new PaymentException(
+                    "You don't have enough money to withdraw " + amount);
+        }
         user.setCash(user.getCash().subtract(amount));
         userRepository.save(user);
 

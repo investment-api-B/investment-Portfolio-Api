@@ -156,6 +156,7 @@ public class CalculateInvestmentImpl implements CalculateInvestment {
                 .getCompanyInformation(us.getStock().getStockSymbol());
 
         BigDecimal pricePerStock = companyInformation.getAnswerBox().getPrice();
+        // get currency
         Integer quantity = us.getQuantity();
 
         return pricePerStock.multiply(BigDecimal.valueOf(quantity));
