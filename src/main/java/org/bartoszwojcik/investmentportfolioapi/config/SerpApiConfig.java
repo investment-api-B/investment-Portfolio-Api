@@ -21,7 +21,7 @@ public class SerpApiConfig {
     private String secretKey;
 
     public GooglePageForStocksWrapper getCompanyInformation(String ticker) {
-        parameter.put("q", ticker + ":WSE");
+        parameter.put("q", "Stocks price " + ticker);
         parameter.put("api_key", secretKey);
         parameter.put("engine", "google_finance");
 

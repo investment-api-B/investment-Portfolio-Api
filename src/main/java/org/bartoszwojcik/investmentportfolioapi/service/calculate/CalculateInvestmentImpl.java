@@ -5,8 +5,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.bartoszwojcik.investmentportfolioapi.config.CurrencyApiClientConfig;
 import org.bartoszwojcik.investmentportfolioapi.config.SerpApiConfig;
 import org.bartoszwojcik.investmentportfolioapi.dto.calculate.CalculatorOutputDto;
+import org.bartoszwojcik.investmentportfolioapi.dto.currencies.CurrencyRateData;
 import org.bartoszwojcik.investmentportfolioapi.dto.stock.internal.GooglePageForStocksWrapper;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.Inflation;
 import org.bartoszwojcik.investmentportfolioapi.model.classes.User;
@@ -21,6 +23,7 @@ public class CalculateInvestmentImpl implements CalculateInvestment {
     private final InflationRepository inflationRepository;
     private final UserStockRepository userStockRepository;
     private final SerpApiConfig serpApiConfig;
+    private final CurrencyApiClientConfig currencyApiClientConfig;
 
     @Override
     public CalculatorOutputDto calculateValueWithOnePayment(User user,
@@ -156,8 +159,16 @@ public class CalculateInvestmentImpl implements CalculateInvestment {
                 .getCompanyInformation(us.getStock().getStockSymbol());
 
         BigDecimal pricePerStock = companyInformation.getAnswerBox().getPrice();
+        String currency = companyInformation.getAnswerBox().getCurrency();
+        BigDecimal value;
+        if (!currency.equals("PLN")) {
+            CurrencyRateData currenciesRates = currencyApiClientConfig.getCurrenciesRates(currency);
+            value = currenciesRates.getValue();
+        } else {
+            value = BigDecimal.valueOf(1);
+        }
         Integer quantity = us.getQuantity();
 
-        return pricePerStock.multiply(BigDecimal.valueOf(quantity));
+        return pricePerStock.multiply(BigDecimal.valueOf(quantity)).multiply(value);
     }
 }

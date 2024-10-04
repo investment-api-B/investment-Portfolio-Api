@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.bartoszwojcik.investmentportfolioapi.config.CurrencyApiClientConfig;
 import org.bartoszwojcik.investmentportfolioapi.config.SerpApiConfig;
+import org.bartoszwojcik.investmentportfolioapi.dto.currencies.CurrencyRateData;
 import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.portfolio.PortfolioValueDto;
 import org.bartoszwojcik.investmentportfolioapi.dto.stock.internal.GooglePageForStocksWrapper;
@@ -27,6 +29,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final UserStockRepository userStockRepository;
     private final UserRepository userRepository;
     private final PortfolioMapper portfolioMapper;
+    private final CurrencyApiClientConfig currencyApiClientConfig;
 
     @Override
     public List<PortfolioDto> getMyPortfolio(User user) {
@@ -120,8 +123,9 @@ public class PortfolioServiceImpl implements PortfolioService {
                 .getCompanyInformation(stock.getStockSymbol());
 
         BigDecimal pricePerStock = companyInformation.getAnswerBox().getPrice();
-        BigDecimal total = pricePerStock.multiply(BigDecimal.valueOf(quantity));
-        return total;
+        BigDecimal value = getValue(companyInformation);
+
+        return pricePerStock.multiply(BigDecimal.valueOf(quantity)).multiply(value);
     }
 
     private Stock getStock(Long stockId) {
@@ -156,8 +160,21 @@ public class PortfolioServiceImpl implements PortfolioService {
                 .getCompanyInformation(us.getStock().getStockSymbol());
 
         BigDecimal pricePerStock = companyInformation.getAnswerBox().getPrice();
+        BigDecimal value = getValue(companyInformation);
         Integer quantity = us.getQuantity();
 
-        return pricePerStock.multiply(BigDecimal.valueOf(quantity));
+        return pricePerStock.multiply(BigDecimal.valueOf(quantity)).multiply(value);
+    }
+
+    private BigDecimal getValue(GooglePageForStocksWrapper companyInformation) {
+        String currency = companyInformation.getAnswerBox().getCurrency();
+        BigDecimal value;
+        if (!currency.equals("PLN")) {
+            CurrencyRateData currenciesRates = currencyApiClientConfig.getCurrenciesRates(currency);
+            value = currenciesRates.getValue();
+        } else {
+            value = BigDecimal.valueOf(1);
+        }
+        return value;
     }
 }
