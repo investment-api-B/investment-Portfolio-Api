@@ -2,6 +2,11 @@
 
 The **Investment-Portfolio API** offers users a comprehensive platform for managing investments, tracking stock portfolios, checking inflation rates, and securely handling payments through Stripe integration. This API supports both users and administrators, ensuring accurate and secure portfolio management with a robust set of features.
 
+## Video
+You can wach how work my API
+[Watch it on YouTube](https://www.youtube.com/watch?v=mPoZEt3RJZA)
+
+
 ## Technologies Used
 
 - **Spring Boot 3.3.3**: Simplified application development.
