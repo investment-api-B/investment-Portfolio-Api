@@ -9,8 +9,4 @@ public class InvestmentPortfolioApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(InvestmentPortfolioApiApplication.class, args);
     }
-
-    //TODO
-    //MAKE "INVESTMENT" CALCULATOR AT THE END
-
 }
