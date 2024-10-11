@@ -1,4 +1,4 @@
-package org.bartoszwojcik.investmentportfolioapi.service.stock;
+package org.bartoszwojcik.investmentportfolioapi.service.ticker;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,27 +15,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class StockServiceImpl implements StockService {
+public class TickerServiceImpl implements TickerService {
     private final SerpApiConfig serpApiConfig;
     private final StockRepository stockRepository;
     private final StockMapper stockMapper;
     private final CurrencyApiClientConfig currencyApiClientConfig;
 
     @Override
-    public List<StockDto> getStocks() {
+    public List<StockDto> getTickers() {
         return stockRepository.findAll().stream()
                 .map(stockMapper::toStockDto)
                 .toList();
     }
 
     @Override
-    public String addStock(String stockSymbol) {
+    public String addTicker(String stockSymbol) {
         GooglePageForStocksWrapper companyInformation = serpApiConfig
                 .getCompanyInformation(stockSymbol);
 
         Stock stock = new Stock();
         stock.setStockSymbol(companyInformation.getAnswerBox().getStock());
         stockRepository.save(stock);
+        return getStockInformation(companyInformation);
+    }
+
+    private String getStockInformation(GooglePageForStocksWrapper companyInformation) {
         String companyName = companyInformation.getAnswerBox().getTitle();
         String companyTicker = companyInformation.getAnswerBox().getStock();
         BigDecimal companyPrice = companyInformation.getAnswerBox().getPrice();
@@ -48,13 +52,14 @@ public class StockServiceImpl implements StockService {
             value = BigDecimal.valueOf(1);
         }
         BigDecimal priceInPln = companyPrice.multiply(value);
-        return companyName + " with ticker: " + companyTicker
+        String stockInfo = companyName + " with ticker: " + companyTicker
                 + " and price: " + companyPrice + " " + currency + " added to database"
                 + " in PLN it is: " + priceInPln;
+        return stockInfo;
     }
 
     @Override
-    public String addStock(String stockSymbol, boolean force) {
+    public String addTicker(String stockSymbol, boolean force) {
         Stock stock = new Stock();
         stock.setStockSymbol(stockSymbol);
         if (force) {
