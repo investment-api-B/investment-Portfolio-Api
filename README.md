@@ -234,7 +234,6 @@ Represents the relationship between users and their stock holdings.
 
 ### After starting the application, the API documentation will be available at:
 - http://localhost:8080/swagger-ui.html - when you run app from intelij IDEA
-- http://localhost:8081/swagger-ui.html - when you run app from docker
 
 ## Login Credentials For Default Users
 
