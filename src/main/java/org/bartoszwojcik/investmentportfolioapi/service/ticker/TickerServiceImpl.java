@@ -39,6 +39,18 @@ public class TickerServiceImpl implements TickerService {
         return getStockInformation(companyInformation);
     }
 
+    @Override
+    public String addTicker(String stockSymbol, boolean force) {
+        Stock stock = new Stock();
+        stock.setStockSymbol(stockSymbol);
+        if (force) {
+            stockRepository.save(
+                    stock
+            );
+        }
+        return "stock added with ticker:" + stockSymbol;
+    }
+
     private String getStockInformation(GooglePageForStocksWrapper companyInformation) {
         String companyName = companyInformation.getAnswerBox().getTitle();
         String companyTicker = companyInformation.getAnswerBox().getStock();
@@ -56,17 +68,5 @@ public class TickerServiceImpl implements TickerService {
                 + " and price: " + companyPrice + " " + currency + " added to database"
                 + " in PLN it is: " + priceInPln;
         return stockInfo;
-    }
-
-    @Override
-    public String addTicker(String stockSymbol, boolean force) {
-        Stock stock = new Stock();
-        stock.setStockSymbol(stockSymbol);
-        if (force) {
-            stockRepository.save(
-                    stock
-            );
-        }
-        return "stock added with ticker:" + stockSymbol;
     }
 }
